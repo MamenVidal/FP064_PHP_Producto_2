@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^/pub/
+RewriteRule .* /pub/$0 [L]
+DirectoryIndex index.php

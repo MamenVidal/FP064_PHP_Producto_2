@@ -1,0 +1,6 @@
+/src/vendor/**
+.vscode/
+/.idea/
+/.DS_Store
+/.env
+*Zone.Identifier
