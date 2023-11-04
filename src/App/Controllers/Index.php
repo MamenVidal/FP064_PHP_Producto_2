@@ -18,4 +18,8 @@ class Index extends \Core\Controller
         die();
     }
 
+    public function dashboardAction() {
+        $this->view->renderTemplate('index/dashboard.html');
+    }
+
 }

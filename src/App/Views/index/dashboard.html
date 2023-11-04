@@ -1,6 +1,6 @@
 {% extends "page.html" %}
 
-{% block title %}Registro{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block body %}
 
@@ -13,10 +13,22 @@
                     </a>
                 </div>
                 <ul class="nav">
-                    <li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/">
+                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/user-edit">
                             <i class="nc-icon nc-circle-09"></i>
-                            <p>Registro</p>
+                            <p>Perfil usuario</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/calendario">
+                            <i class="nc-icon nc-notes"></i>
+                            <p>Calendario</p>
                         </a>
                     </li>
                 </ul>

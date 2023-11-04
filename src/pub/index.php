@@ -19,7 +19,7 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 $router = new Router();
 
 // añado declaración de rutas
-$router->addRoute('', 'Index', 'index');
+$router->addRoute('dashboard', 'Index', 'dashboard');
 
 // resuelvo la ruta al controlador y acción
-$router->dispatch($_SERVER['QUERY_STRING']);
+$router->dispatch($_SERVER['REQUEST_URI']);

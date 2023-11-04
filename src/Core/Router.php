@@ -64,6 +64,7 @@ class Router
     protected function removeQueryStringVariables($url)
     {
         if ( !empty($url) ) {
+            $url = ltrim($url, '/');
             $parts = explode('&', $url, 2);
             if ( strpos($parts[0], '=') === false ) {
                 $url = $parts[0];
@@ -80,10 +81,7 @@ class Router
     public function match($url)
     {
         foreach ($this->routes as $route => $params) {
-            if (empty($url) && empty($route)) {
-                return $params;
-            }
-            if (preg_match($route, $url, $matches)) {
+            if (preg_match('/'.$route.'/i', $url, $matches)) {
                 // Get named capture group values
                 foreach ($matches as $key => $match) {
                     if (is_string($key)) {
@@ -93,6 +91,11 @@ class Router
                 return $params;
             }
         }
+        return $this->defaultRoute();
+    }
+
+    public function defaultRoute() {
+        return  ['controller' => 'Index', 'action' => 'index'];
     }
 
 }
