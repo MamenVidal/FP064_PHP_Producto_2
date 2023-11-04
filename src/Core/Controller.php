@@ -2,14 +2,30 @@
 
 namespace Core;
 
+use App\Models\Auth;
+use Core\View;
+
 abstract class Controller
 {
+    protected $authModel;
+    protected $view;
+    protected $authRequired = false; // Por defecto, no se requiere autenticación
+
+    public function __construct(
+    ) {
+        // Crear una instancia del modelo de Autenticación
+        $this->authModel = new Auth();
+        $this->view = new View();
+
+        // Si el controlador requiere autenticación y el usuario no está logueado, redirigir a la página de inicio
+        if ($this->authRequired && !$this->authModel->isUserLoggedIn()) {
+            header('Location: /'); // ruta base dónde se mostrará el formulario de login
+            exit;
+        }
+    }
 
     /**
-     * Magic method called when a non-existent or inaccessible method is
-     * called on an object of this class. Used to execute before and after
-     * filter methods on action methods. Action methods need to be named
-     * with an "Action" suffix, e.g. indexAction, showAction etc.
+     * Magic method que llama a la acción adecuada del controlador
      *
      * @param string $name  Method name
      * @param array $args Arguments passed to the method
