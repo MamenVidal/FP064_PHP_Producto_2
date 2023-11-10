@@ -13,7 +13,13 @@ class Index extends \Core\Controller
             $this->view->renderTemplate('index/dashboard.html');
         } else {
             // Mostrar una vista o texto para usuarios no autenticados
-            $this->view->renderTemplate('index/register.html');
+            $this->view->renderTemplate('index/dashboard.html');
+
+            // IMPORTANTE CAMBIAR EL SEGUNDO RENDERTEMPLATE A REGISTER.HTML 
+            // CUANDO TENGAMOS LA LÓGICA DEL LOGIN IMPLEMENTADA.
+            // SE HA QUITADO PORQUE REDIRIGIA TODO EL RATO A REGISTER PORQUE AUN
+            // NO TENEMOS UN USUARIO LOGEADO.
+
         }
         die();
     }
