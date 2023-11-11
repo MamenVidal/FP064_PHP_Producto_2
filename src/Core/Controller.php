@@ -63,4 +63,62 @@ abstract class Controller
     protected function after()
     {
     }
+
+    /**
+     * Verifica si la solicitud actual es un POST.
+     *
+     * @return bool
+     */
+    protected function isPost()
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }
+
+    /**
+     * Verifica si la solicitud actual es una solicitud Ajax.
+     *
+     * @return bool
+     */
+    protected function isAjax()
+    {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
+
+    /**
+     * Obtiene todos los parámetros de la solicitud, tanto GET como POST.
+     *
+     * @return array
+     */
+    protected function getParams()
+    {
+        return $_REQUEST;
+    }
+
+    /**
+     * Obtiene un parámetro específico de la solicitud GET o POST.
+     *
+     * @param string $key La clave del parámetro
+     * @return mixed El valor del parámetro o null si no está definido
+     */
+    protected function getParam($key)
+    {
+        return $_REQUEST[$key] ?? null;
+    }
+
+    protected function getFlashMessages()
+    {
+        if (!session_id()) {
+            session_start();
+        }
+
+        // Recuperar mensajes
+        $messages = $_SESSION['flash_messages'] ?? [];
+
+        // Limpiar los mensajes para que no se muestren de nuevo
+        unset($_SESSION['flash_messages']);
+
+        return $messages;
+    }
+
+    
 }

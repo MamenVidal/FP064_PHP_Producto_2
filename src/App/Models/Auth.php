@@ -1,11 +1,22 @@
 <?php
 namespace App\Models;
 
+
+use App\Models\Personas;
+use App\Models\TiposUsuarios;
 use App\Models\Usuarios;
 
 class Auth {
 
-    public function __construct() {
+    private Personas $personas;
+    private TiposUsuarios $tiposUsuarios;
+    private Usuarios $usuarios;
+
+    public function __construct(
+    ) {
+        $this->personas = new Personas();
+        $this->tiposUsuarios = new TiposUsuarios();
+        $this->usuarios = new Usuarios();
         // Asegurarse de que la sesión esté iniciada
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -14,8 +25,7 @@ class Auth {
 
     public function login($username, $password) {
         // Implementar la lógica de login aquí usando UsuarioModel
-        $usuarioModel = new \App\Models\Usuarios();
-        $user = $usuarioModel->login($username, $password);
+        $user = $this->usuarios->login($username, $password);
 
         if ($user) {
             // Almacenar información relevante en la sesión
@@ -40,6 +50,9 @@ class Auth {
         }
         // Finalmente, destruir la sesión
         session_destroy();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public function isUserLoggedIn() {

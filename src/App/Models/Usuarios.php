@@ -16,7 +16,7 @@ class Usuarios extends \Core\Model
     }
 
     // Método para registrar un nuevo usuario
-    public function register($username, $password, $idPersona, $tipoUsuario) {
+    public function register(string $username, string $password, int $idPersona, int $tipoUsuario) {
         // Cifrar la contraseña
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         
@@ -50,6 +50,7 @@ class Usuarios extends \Core\Model
 
     // Método para actualizar los datos de un usuario
     public function updateProfile($idUsuario, $username, $password, $idPersona, $tipoUsuario) {
+
         // Cifrar la nueva contraseña
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         
@@ -63,6 +64,19 @@ class Usuarios extends \Core\Model
         
         // Actualizar el usuario y devolver el resultado
         return $this->save($idUsuario, $data);
+    }
+
+    /**
+     * Verifica si un nombre de usuario ya existe en la base de datos.
+     *
+     * @param string $username El nombre de usuario a verificar.
+     * @return bool Retorna true si el nombre de usuario ya existe, false en caso contrario.
+     */
+    public function existeUsername(string $username): bool {
+        $result = $this->query("SELECT COUNT(*) as count FROM {$this->table} WHERE Username = :username", ['username' => $username]);
+
+        // Verifica si el conteo es mayor a 0, lo que indica que ya existe el nombre de usuario
+        return $result[0]['count'] > 0;
     }
 
 }
