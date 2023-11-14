@@ -5,40 +5,12 @@
 {% block body %}
 
     <div class="wrapper">
-        <div class="sidebar" data-image="/img/sidebar.jpg">
-            <div class="sidebar-wrapper">
-                <div class="logo">
-                    <a href="/" class="simple-text">
-                        PHPDevelopers
-                    </a>
-                </div>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">
-                            <i class="nc-icon nc-chart-pie-35"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/index/register.html">
-                            <i class="nc-icon nc-circle-09"></i>
-                            <p>Acceder</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/calendario">
-                            <i class="nc-icon nc-notes"></i>
-                            <p>Calendario</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        {% include 'sidebar.html' ignore missing with {'foo': 'bar'} %}
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="dashboard.html"> Dashboard </a>
+                    <a class="navbar-brand" href="#pablo"> Dashboard </a>
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -49,6 +21,9 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
+
+                    {% include 'messages.html' ignore missing with {'flash_messages': flash_messages} %}
+                    
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card ">

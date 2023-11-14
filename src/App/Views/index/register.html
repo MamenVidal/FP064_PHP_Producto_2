@@ -2,78 +2,124 @@
 
 {% block title %}Registro{% endblock %}
 
+
 {% block body %}
 
-<div class="wrapper">
-    <div class="sidebar" data-image="/img/sidebar.jpg">
-        <div class="sidebar-wrapper">
-            <div class="logo">
-                <a href="/" class="simple-text">
-                    PHPDevelopers
-                </a>
+    <div class="wrapper">
+        <div class="sidebar" data-image="/img/sidebar.jpg">
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="/" class="simple-text">
+                        PHPDevelopers
+                    </a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a class="nav-link" href="/">
+                            <i class="nc-icon nc-circle-09"></i>
+                            <p>Registro</p>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="nc-icon nc-chart-pie-35"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="/register.html">
-                        <i class="nc-icon nc-circle-09"></i>
-                        <p>Acceder</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="/calendario">
-                        <i class="nc-icon nc-notes"></i>
-                        <p>Calendario</p>
-                    </a>
-                </li>
-            </ul>
         </div>
-    </div>
-    <div class="main-panel">
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
 
-            <!-- End Navbar -->
+                    {% include 'messages.html' ignore missing with {'flash_messages': flash_messages} %}
+                    
+                    <div class="row">
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Registro</h4>
-                            </div>
+                        <div class="col-md-6 offset-md-2">
                             
-                            <div class="card-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nombre de Usuario</label>
-                                                <input type="text" class="form-control" placeholder="Username" name="username">
-                                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Login</h4>
+                                </div>
+                                
+                                <div class="card-body">
+                                
+                                    <form action="/loginPost" method="post" onsubmit="return validarFormulario()">
+                                        <div>
+                                            <label for="Username">Nombre de Usuario:</label>
+                                            <input type="text" id="Username" name="Username" required>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Contraseña</label>
-                                                <input type="password" class="form-control" placeholder="Password" name="password">
-                                            </div>
+                                        <div>
+                                            <label for="Password">Contraseña:</label>
+                                            <input type="password" id="Password" name="Password" required>
                                         </div>
-                                    </div>
-            
-                                    <button type="submit" class="btn btn-primary btn-fill pull-right">Registrar</button>
-                                    
-                                   
-                                    <a href="/registro" class="btn btn-secondary btn-fill pull-right" style="margin-right: 10px;">Crear una cuenta</a>
-            
-                                    <div class="clearfix"></div>
-                                </form>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary btn-fill pull-right">Acceder</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="col-md-6 offset-md-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Registro</h4>
+                                </div>
+                                
+                                <div class="card-body">
+                                
+                                    <form action="/registerPost" method="post" onsubmit="return validarFormulario()">
+                                        <div>
+                                            <label for="Nombre">Nombre:</label>
+                                            <input type="text" id="Nombre" name="Nombre" required>
+                                        </div>
+                                        <div>
+                                            <label for="Apellido1">Primer Apellido:</label>
+                                            <input type="text" id="Apellido1" name="Apellido1" required>
+                                        </div>
+                                        <div>
+                                            <label for="Apellido2">Segundo Apellido:</label>
+                                            <input type="text" id="Apellido2" name="Apellido2" required>
+                                        </div>
+                                        <div>
+                                            <label for="Username">Nombre de Usuario:</label>
+                                            <input type="text" id="Username" name="Username" required>
+                                        </div>
+                                        <div>
+                                            <label for="Password">Contraseña:</label>
+                                            <input type="password" id="Password" name="Password" required>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary btn-fill pull-right">Registrarse</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+                        <p class="copyright text-center">
+                            FP064 Desarrollo back-end con PHP, framework MVC y gestor de contenidos
+                        </p>
+                    </nav>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script>
+        function validarFormulario() {
+            let campos = ['nombre', 'apellido1', 'apellido2', 'username', 'password'];
+            for (let i = 0; i < campos.length; i++) {
+                let valor = document.getElementById(campos[i]).value;
+                if (valor.trim() === '') {
+                    alert('Por favor, completa todos los campos.');
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
 
 {% endblock %}
