@@ -24,5 +24,9 @@ $router->addRoute('loginPost', 'User', 'loginPost');
 $router->addRoute('registerPost', 'User', 'registerPost');
 $router->addRoute('logout', 'User', 'logout');
 
+// acciones administrador
+$router->addRoute('acto-edit', 'Admin', 'actoEdit');
+$router->addRoute('acto-save', 'Admin', 'actoSave');
+
 // resuelvo la ruta al controlador y acción
-$router->dispatch($_SERVER['REQUEST_URI']);
+$router->dispatch();

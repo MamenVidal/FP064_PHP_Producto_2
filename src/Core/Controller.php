@@ -120,5 +120,57 @@ abstract class Controller
         return $messages;
     }
 
-    
+    protected function onlyAuth() {
+        if (!$this->authModel->isUserLoggedIn()) {
+            $_SESSION['flash_messages'][] = [
+                'tipo' => 'danger',
+                'texto' => "Acceso restringido."
+            ];
+            header('Location: /');
+            exit;
+        }
+    }
+
+    protected function onlyAdmin() {
+        if (!$this->isAdmin()) {
+            $_SESSION['flash_messages'][] = [
+                'tipo' => 'danger',
+                'texto' => "Acceso restringido a administradores."
+            ];
+            header('Location: /');
+            exit;
+        }
+    }
+
+    protected function onlyPonente() {
+        if (!$this->isPonente()) {
+            $_SESSION['flash_messages'][] = [
+                'tipo' => 'danger',
+                'texto' => "Acceso restringido a ponentes."
+            ];
+            header('Location: /');
+            exit;
+        }
+    }
+
+    protected function onlyUsuario() {
+        if (!$this->isUsuario()) {
+            $_SESSION['flash_messages'][] = [
+                'tipo' => 'danger',
+                'texto' => "Acceso restringido a usuarios."
+            ];
+            header('Location: /');
+            exit;
+        }
+    }
+
+    public function isAdmin() {
+        return $this->authModel->isUserLoggedIn() && $this->authModel->getUserData()['Id_tipo_usuario'] == 1;
+    }
+    public function isPonente() {
+        return $this->authModel->isUserLoggedIn() && $this->authModel->getUserData()['Id_tipo_usuario'] == 2;
+    }
+    public function isUsuario() {
+        return $this->authModel->isUserLoggedIn() && $this->authModel->getUserData()['Id_tipo_usuario'] == 3;
+    }
 }
