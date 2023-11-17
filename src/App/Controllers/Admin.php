@@ -7,14 +7,19 @@ use App\Models\Actos;
 class Admin extends \Core\Controller
 {
 
+    // Método para editar un acto existente
     public function actoEditAction() {
-        $this->onlyAdmin();
+        $this->onlyAdmin();  // Acceso restringido solo a administradores
+        // Carga el modelo de Actos y obtiene un acto específico por su ID
         $actosModel = new Actos();
         $acto = $actosModel->load($this->getParam('id'));
         $this->view->renderTemplate('actos/edit.html', ['flash_messages' => $this->getFlashMessages(), 'acto' => $acto]);
     }
+    
+    // Método para guardar o actualizar un acto
     public function actoSaveAction() {
         $this->onlyAdmin();
+         // Crea una nueva instancia del modelo Actos y guarda la info del acto
         $actosModel = new Actos();
         $acto = $actosModel->save($this->getParam('Id_acto'),[
             'Titulo' => $this->getParam('Titulo'),
@@ -25,7 +30,9 @@ class Admin extends \Core\Controller
             'Id_tipo_acto' => $this->getParam('Id_tipo_acto'),
             'Descripcion_larga' => $this->getParam('Descripcion_larga'),
         ]);
+        // Verificar que el acto se guardó correctamente
         if ($acto) {
+            // Mensaje de éxito y redirige a la página de inicio
             $_SESSION['flash_messages'][] = [
                 'tipo' => 'success',
                 'texto' => "Acto guardado correctamente."
@@ -33,6 +40,7 @@ class Admin extends \Core\Controller
             header('Location: /');
             exit;
         } else {
+            // Mensaje de error y redirige a la página de inicio
             $_SESSION['flash_messages'][] = [
                 'tipo' => 'danger',
                 'texto' => "Error al guardar el acto."
