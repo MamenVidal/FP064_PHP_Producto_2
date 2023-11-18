@@ -1,0 +1,52 @@
+{% extends "page.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    <div class="wrapper">
+        {% include 'sidebar.html' ignore missing with {'user': user} %}
+        <div class="main-panel">
+            
+            {% include 'navbar.html' ignore missing with {'flash_messages': flash_messages}  %}
+
+            <div class="content">
+
+                <form action="/user-save" method="POST">
+                    <div class="form-group">
+                        <label for="Username"><strong>Nombre de usuario</strong></label>
+                        <input type="text" class="form-control" id="Username" name="Username" value="{{ user.Username }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password"><strong>Contraseña</strong> (sólo rellenar si desea modificar su contraseña)</label>
+                        <input type="password" class="form-control" id="Password" name="Password" value="" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="Nombre"><strong>Nombre</strong></label>
+                        <input type="text" class="form-control" id="Nombre" name="Nombre" value="{{ user.Nombre }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Apellido1"><strong>Apellido 1</strong></label>
+                        <input type="text" class="form-control" id="Apellido1" name="Apellido1" value="{{ user.Apellido1 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Apellido2"><strong>Apellido 2</strong></label>
+                        <input type="text" class="form-control" id="Apellido2" name="Apellido2" value="{{ user.Apellido2 }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>                
+                
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+                        <p class="copyright text-center">
+                            FP064 Desarrollo back-end con PHP, framework MVC y gestor de contenidos
+                        </p>
+                    </nav>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+{% endblock %}

@@ -18,11 +18,13 @@ require dirname(__DIR__) . '/vendor/autoload.php';
  */
 $router = new Router();
 
-// añado declaración de rutas
+// añado declaración de rutas para todos
 $router->addRoute('dashboard', 'Index', 'dashboard');
 $router->addRoute('loginPost', 'User', 'loginPost');
 $router->addRoute('registerPost', 'User', 'registerPost');
 $router->addRoute('logout', 'User', 'logout');
+$router->addRoute('user-edit', 'User', 'userEdit');
+$router->addRoute('user-save', 'User', 'userSave');
 
 // acciones administrador
 $router->addRoute('acto-edit', 'Admin', 'actoEdit');

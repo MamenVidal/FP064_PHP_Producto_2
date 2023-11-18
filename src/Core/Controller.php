@@ -105,6 +105,20 @@ abstract class Controller
         return $_REQUEST[$key] ?? null;
     }
 
+    protected function addFlashMessage($tipo, $texto)
+    {
+        if (!session_id()) {
+            session_start();
+        }
+
+        if(empty($_SESSION['flash_messages'])) $_SESSION['flash_messages'] = [];
+
+        $_SESSION['flash_messages'][] = [
+            'tipo' => $tipo,
+            'texto' => $texto
+        ];
+    }
+
     protected function getFlashMessages()
     {
         if (!session_id()) {
@@ -122,10 +136,7 @@ abstract class Controller
 
     protected function onlyAuth() {
         if (!$this->authModel->isUserLoggedIn()) {
-            $_SESSION['flash_messages'][] = [
-                'tipo' => 'danger',
-                'texto' => "Acceso restringido."
-            ];
+            $this->addFlashMessage('danger', "Acceso restringido.");
             header('Location: /');
             exit;
         }
@@ -133,10 +144,7 @@ abstract class Controller
 
     protected function onlyAdmin() {
         if (!$this->isAdmin()) {
-            $_SESSION['flash_messages'][] = [
-                'tipo' => 'danger',
-                'texto' => "Acceso restringido a administradores."
-            ];
+            $this->addFlashMessage('danger', "Acceso restringido a administradores.");
             header('Location: /');
             exit;
         }
@@ -144,10 +152,7 @@ abstract class Controller
 
     protected function onlyPonente() {
         if (!$this->isPonente()) {
-            $_SESSION['flash_messages'][] = [
-                'tipo' => 'danger',
-                'texto' => "Acceso restringido a ponentes."
-            ];
+            $this->addFlashMessage('danger', "Acceso restringido a ponentes.");
             header('Location: /');
             exit;
         }
@@ -155,10 +160,7 @@ abstract class Controller
 
     protected function onlyUsuario() {
         if (!$this->isUsuario()) {
-            $_SESSION['flash_messages'][] = [
-                'tipo' => 'danger',
-                'texto' => "Acceso restringido a usuarios."
-            ];
+            $this->addFlashMessage('danger', "Acceso restringido a usuarios.");
             header('Location: /');
             exit;
         }

@@ -5,14 +5,22 @@
         <div class="logo">
             <a href="/" class="simple-text">
                 PHPDevelopers
-                {{ user.Id_tipo_usuario }}
             </a>
         </div>
         <ul class="nav">
+            {% if user.Id_tipo_usuario == 1 %}
+            <!-- Elemento de navegación solo para admin -->
             <li class="nav-item">
                 <a class="nav-link" href="/">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                <a class="nav-link" href="/calendario">
+                    <i class="nc-icon nc-notes"></i>
+                    <p>Calendario</p>
                 </a>
             </li>
             <!-- Elemento de navegación para editar el perfil del usuario -->
@@ -22,13 +30,7 @@
                     <p>Perfil usuario</p>
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="/calendario">
-                    <i class="nc-icon nc-notes"></i>
-                    <p>Calendario</p>
-                </a>
-            </li>
-            <!-- Elemento de navegación para cerrar sesión -->
+            <!-- Elemento de navegación para editar mi cuenta y cerrar sesión -->
             <li class="nav-item active active-pro">
                 <a class="nav-link active" href="/logout">
                     <i class="nc-icon nc-alien-33"></i>

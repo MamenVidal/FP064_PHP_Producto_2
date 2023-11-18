@@ -32,19 +32,11 @@ class Admin extends \Core\Controller
         ]);
         // Verificar que el acto se guardó correctamente
         if ($acto) {
-            // Mensaje de éxito y redirige a la página de inicio
-            $_SESSION['flash_messages'][] = [
-                'tipo' => 'success',
-                'texto' => "Acto guardado correctamente."
-            ];
+            $this->addFlashMessage('success', "Acto guardado correctamente.");
             header('Location: /');
             exit;
         } else {
-            // Mensaje de error y redirige a la página de inicio
-            $_SESSION['flash_messages'][] = [
-                'tipo' => 'danger',
-                'texto' => "Error al guardar el acto."
-            ];
+            $this->addFlashMessage('danger', "Error al guardar el acto.");
             header('Location: /');
             exit;
         }
