@@ -12,7 +12,7 @@ class Index extends \Core\Controller
             // Obtener datos de usuario si es necesario
             $userData = $this->authModel->getUserData();
             $actosModel = new Actos();
-            $actos = $actosModel->all();
+            $actos = $actosModel->allAdmin();
             // Mostrar una vista o texto para usuarios autenticados
             $this->view->renderTemplate(
                 'index/dashboard.html', 

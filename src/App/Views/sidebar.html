@@ -8,6 +8,19 @@
             </a>
         </div>
         <ul class="nav">
+            <li class="nav-item active">
+                <a class="nav-link">
+                    <p>
+                        {% if user.Id_tipo_usuario == 1 %}
+                        ADMINISTRADOR
+                        {% elseif user.Id_tipo_usuario == 2 %}
+                        PONENTE
+                        {% elseif user.Id_tipo_usuario == 3 %}
+                        USUARIO
+                        {% endif %}
+                    </p>
+                </a>
+            </li>
             {% if user.Id_tipo_usuario == 1 %}
             <!-- Elemento de navegación solo para admin -->
             <li class="nav-item">

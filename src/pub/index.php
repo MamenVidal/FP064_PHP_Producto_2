@@ -30,5 +30,10 @@ $router->addRoute('user-save', 'User', 'userSave');
 $router->addRoute('acto-edit', 'Admin', 'actoEdit');
 $router->addRoute('acto-save', 'Admin', 'actoSave');
 
+// acciones calendario
+$router->addRoute('calendario', 'Calendario', 'index');
+$router->addRoute('inscripcion', 'Calendario', 'inscripcion');
+$router->addRoute('desuscripcion', 'Calendario', 'desuscripcion');
+
 // resuelvo la ruta al controlador y acción
 $router->dispatch();

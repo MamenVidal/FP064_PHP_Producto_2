@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Actos;
+use App\Models\TipoActo;
 
 class Admin extends \Core\Controller
 {
@@ -10,10 +11,23 @@ class Admin extends \Core\Controller
     // Método para editar un acto existente
     public function actoEditAction() {
         $this->onlyAdmin();  // Acceso restringido solo a administradores
+        
+        $userData = $this->authModel->getUserData();
+
         // Carga el modelo de Actos y obtiene un acto específico por su ID
         $actosModel = new Actos();
         $acto = $actosModel->load($this->getParam('id'));
-        $this->view->renderTemplate('actos/edit.html', ['flash_messages' => $this->getFlashMessages(), 'acto' => $acto]);
+        $tipoActoModel = new TipoActo();
+        $tiposActo = $tipoActoModel->all();
+        $this->view->renderTemplate(
+            'actos/edit.html', 
+            [
+                'flash_messages' => $this->getFlashMessages(), 
+                'user' => $userData,
+                'acto' => $acto,
+                'tipo_acto' => $tiposActo,
+            ]
+        );
     }
     
     // Método para guardar o actualizar un acto

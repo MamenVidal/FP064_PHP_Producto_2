@@ -19,7 +19,7 @@
                             <div class="col-12">
                                 <div class="card ">
                                     <div class="card-header ">
-                                        <h4 class="card-title">Actos</h4>
+                                        <h4 class="card-title">Gestionar Actos</h4>
                                         <a href="/acto-edit" class="btn btn-success float-right">
                                             <i class="nc-icon nc-simple-add"></i> Añadir
                                         </a>
@@ -35,7 +35,7 @@
                                                     <th>Título</th>
                                                     <th>Descripción Corta</th>
                                                     <th>Número de Asistentes</th>
-                                                    <th>Id Tipo Acto</th>
+                                                    <th>Tipo Acto</th>
                                                     <th>Descripción Larga</th>
                                                 </tr>
                                             </thead>
@@ -52,34 +52,12 @@
                                                         <td>{{ acto.Titulo }}</td>
                                                         <td>{{ acto.Descripcion_corta }}</td>
                                                         <td>{{ acto.Num_asistentes }}</td>
-                                                        <td>{{ acto.Id_tipo_acto }}</td>
+                                                        <td>{{ acto.tipo_acto }}</td>
                                                         <td>{{ acto.Descripcion_larga }}</td>
                                                     </tr>
                                                 {% endfor %}
                                             </tbody>
                                         </table>                                                                            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card ">
-                                    <div class="card-header ">
-                                        <h4 class="card-title">Users Behavior</h4>
-                                        <p class="card-category">24 Hours performance</p>
-                                    </div>
-                                    <div class="card-body ">
-                                        <div id="chartHours" class="ct-chart"></div>
-                                    </div>
-                                    <div class="card-footer ">
-                                        <div class="legend">
-                                            <i class="fa fa-circle text-info"></i> Open
-                                            <i class="fa fa-circle text-danger"></i> Click
-                                            <i class="fa fa-circle text-warning"></i> Click Second Time
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -90,46 +68,32 @@
                     <div class="row">
 
                         <!-- Calendario -->
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="card ">
-                                <div id='calendar'></div>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                      var calendarEl = document.getElementById('calendar');
-                                      var calendar = new FullCalendar.Calendar(calendarEl, {
-                                        themeSystem: 'bootstrap5',
-                                        locale: 'es',
-                                        initialView: 'dayGridMonth',
-                                        firstDay: 1,
-                                        headerToolbar: {
-                                            left: 'prev,next today',
-                                            center: 'title',
-                                            right: 'dayGridMonth,timeGridWeek,timeGridDay',
-                                        },
-                                        buttonText: {
-                                            today: 'Hoy',
-                                            month: 'Mes',
-                                            week: 'Semana',
-                                            day: 'Día',
-                                            list: 'Lista'
-                                        },
-                                        events: [
-                                            {
-                                                color: '#ff0000',
-                                                title: 'Meeting',
-                                                start: '2023-11-12',
-                                            },
-                                            {
-                                                color: '#00ff00',
-                                                title: 'Click for Google',
-                                                url: '/acto-edit?id=1',
-                                                start: '2023-11-28'
-                                            }
-                                        ]
-                                      });
-                                      calendar.render();
-                                    });
-                                  </script>
+                                <div class="card-header ">
+                                    <h4 class="card-title"></h4>
+                                </div>
+                                <ul>
+                                    <li>Consulta todos los eventos</li>
+                                    <li>Consulta los eventos a los que estás inscrito</li>
+                                    <li>Sucríbete o desuscríbete</li>
+                                </ul>
+                                <a class="btn btn-primary w-100" href="/calendario">Calendario de Eventos</a>
+                            </div>
+                        </div>
+
+                        <!-- Mi cuenta -->
+                        <div class="col-6">
+                            <div class="card ">
+                                <div class="card-header ">
+                                    <h4 class="card-title"></h4>
+                                </div>
+                                <ul>
+                                    <li>Consulta tus datos</li>
+                                    <li>Modifica tu información</li>
+                                    <li>Cambia mi contraseña</li>
+                                </ul>
+                                <a class="btn btn-success w-100" href="/user-edit">Mi Cuenta</a>
                             </div>
                         </div>
 

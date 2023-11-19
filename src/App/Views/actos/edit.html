@@ -42,11 +42,15 @@
                     <label for="Num_asistentes">Número de Asistentes:</label>
                     <input type="number" class="form-control" name="Num_asistentes" id="Num_asistentes" value="{{ acto.Num_asistentes | default('') }}" required>
                 </div>
-            
+
                 <div class="form-group">
-                    <label for="Id_tipo_acto">Id Tipo Acto:</label>
-                    <input type="number" class="form-control" name="Id_tipo_acto" id="Id_tipo_acto" value="{{ acto.Id_tipo_acto | default('') }}" required>
-                </div>
+                    <label for="Id_tipo_acto">Tipo de Acto:</label>
+                    <select class="form-control" name="Id_tipo_acto" id="Id_tipo_acto" required>
+                        {% for tipo in tipo_acto %}
+                            <option value="{{ tipo.Id_tipo_acto }}" {% if acto.Id_tipo_acto == tipo.Id_tipo_acto %} selected {% endif %}>{{ tipo.Descripcion }}</option>
+                        {% endfor %}
+                    </select>
+                </div>                
             
                 <div class="form-group">
                     <label for="Descripcion_larga">Descripción Larga:</label>
