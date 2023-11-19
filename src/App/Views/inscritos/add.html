@@ -1,0 +1,55 @@
+{# Extiende la plantilla base "page.html" #}
+{% extends "page.html" %}
+
+{# Define el bloque 'title' con el título "Dashboard" #}
+{% block title %}Dashboard{% endblock %}
+
+{# Inicia el bloque 'body' para el contenido principal de la página #}
+{% block body %}
+
+<div class="wrapper">
+    {% include 'sidebar.html' ignore missing with {'user': user} %}
+    <div class="main-panel">
+        {% include 'navbar.html' ignore missing with {'flash_messages': flash_messages}  %}
+        <div class="content">
+            <h1>Añadir inscripción</h1>
+            {# Formulario para guardar datos de un inscrito #}
+            <form method="post" action="/inscritos-save" class="needs-validation" novalidate>
+            
+                <div class="form-group">
+                    <label for="Id_acto">Acto:</label>
+                    <select class="form-control" name="Id_acto" id="Id_acto" required>
+                        {% for acto in actos %}
+                            <option value="{{ acto.Id_acto }}">{{ acto.Titulo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Id_persona">Persona:</label>
+                    <select class="form-control" name="Id_persona" id="Id_persona" required>
+                        {% for persona in personas %}
+                            <option value="{{ persona.Id_persona }}">{{ persona.Apellido1 }} {{ persona.Apellido2 }}, {{ persona.Nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                {# Botón para enviar el formulario #}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+            
+        </div>
+    
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav>
+                    <p class="copyright text-center">
+                        FP064 Desarrollo back-end con PHP, framework MVC y gestor de contenidos
+                    </p>
+                </nav>
+            </div>
+        </footer>
+    </div>
+</div>
+
+{% endblock %}

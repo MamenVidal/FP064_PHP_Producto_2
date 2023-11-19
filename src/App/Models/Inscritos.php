@@ -38,5 +38,25 @@ class Inscritos extends \Core\Model
         $inscritos = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $inscritos['numInscritos'];
     }
+
+    public function getInscritos($idActo) {
+        if(!is_numeric($idActo)) {
+            $sql = "SELECT I.*, P.Nombre, P.Apellido1, P.Apellido2, A.Titulo
+                FROM {$this->table} I 
+                LEFT JOIN Personas P ON P.Id_persona = I.Id_persona 
+                LEFT JOIN Actos A ON A.Id_acto = I.Id_acto";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([]);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        $sql = "SELECT I.*, P.Nombre, P.Apellido1, P.Apellido2, A.Titulo
+            FROM {$this->table} I 
+            LEFT JOIN Personas P ON P.Id_persona = I.Id_persona 
+            LEFT JOIN Actos A ON A.Id_acto = I.Id_acto 
+            WHERE I.Id_acto = :idActo";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idActo' => $idActo]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     
 }

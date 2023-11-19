@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Actos;
+use App\Models\TipoActo;
 
 class Index extends \Core\Controller
 {
@@ -13,6 +14,8 @@ class Index extends \Core\Controller
             $userData = $this->authModel->getUserData();
             $actosModel = new Actos();
             $actos = $actosModel->allAdmin();
+            $tipoActoModel = new TipoActo();
+            $tiposActo = $tipoActoModel->all();
             // Mostrar una vista o texto para usuarios autenticados
             $this->view->renderTemplate(
                 'index/dashboard.html', 
@@ -20,6 +23,7 @@ class Index extends \Core\Controller
                     'flash_messages' => $this->getFlashMessages(), 
                     'user' => $userData,
                     'actos' => $actos,
+                    'tipos_acto' => $tiposActo,
                 ]
             );
         } else {

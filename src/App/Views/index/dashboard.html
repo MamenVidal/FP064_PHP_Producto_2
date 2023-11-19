@@ -16,6 +16,8 @@
                     {% if user.Id_tipo_usuario == 1 %}
                         <!-- Dashboard admin -->
                         <div class="row">
+
+                            <!-- Gestionar Actos -->
                             <div class="col-12">
                                 <div class="card ">
                                     <div class="card-header ">
@@ -37,16 +39,13 @@
                                                     <th>Número de Asistentes</th>
                                                     <th>Tipo Acto</th>
                                                     <th>Descripción Larga</th>
+                                                    <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for acto in actos %}
                                                     <tr>
-                                                        <td>{{ acto.Id_acto }}<br>
-                                                        <a href="/acto-edit?id={{ acto.Id_acto }}" class="btn btn-primary">
-                                                            <i class="nc-icon nc-ruler-pencil"></i>
-                                                        </a>
-                                                        </td>
+                                                        <td>{{ acto.Id_acto }}</td>
                                                         <td>{{ acto.Fecha }}</td>
                                                         <td>{{ acto.Hora }}</td>
                                                         <td>{{ acto.Titulo }}</td>
@@ -54,6 +53,23 @@
                                                         <td>{{ acto.Num_asistentes }}</td>
                                                         <td>{{ acto.tipo_acto }}</td>
                                                         <td>{{ acto.Descripcion_larga }}</td>
+                                                        <td class="d-inline-block">
+                                                            <div>
+                                                                <a href="/acto-edit?id={{ acto.Id_acto }}" class="btn btn-primary btn-sm mb-1">
+                                                                    <i class="nc-icon nc-ruler-pencil"></i> Editar
+                                                                </a>
+                                                            </div>
+                                                            <div>
+                                                                <a href="/ponente-list?id={{ acto.Id_acto }}" class="btn btn-success btn-sm mb-1">
+                                                                    <i class="nc-icon nc-ruler-pencil"></i> Ponentes
+                                                                </a>
+                                                            </div>
+                                                            <div>
+                                                                <a href="/inscritos-list?id={{ acto.Id_acto }}" class="btn btn-secondary btn-sm mb-1">
+                                                                    <i class="nc-icon nc-ruler-pencil"></i> Inscritos
+                                                                </a>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 {% endfor %}
                                             </tbody>
@@ -61,6 +77,46 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Gestionar tipos actos -->
+                            <div class="col-12">
+                                <div class="card ">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Gestionar Tipos de Acto</h4>
+                                        <a href="/tipoacto-edit" class="btn btn-success float-right">
+                                            <i class="nc-icon nc-simple-add"></i> Añadir
+                                        </a>
+                                    </div>
+                                    <div class="card-body ">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>Id Tipo Acto</th>
+                                                    <th>Descripción</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for tipo_acto in tipos_acto %}
+                                                    <tr>
+                                                        <td>{{ tipo_acto.Id_tipo_acto }}</td>
+                                                        <td>{{ tipo_acto.Descripcion }}</td>
+                                                        <td>
+                                                            <a href="/tipoacto-edit?id={{ tipo_acto.Id_tipo_acto }}" class="btn btn-primary btn-sm mr-1">
+                                                                <i class="nc-icon nc-ruler-pencil"></i> Editar
+                                                            </a>
+                                                            <a href="/tipoacto-delete?id={{ tipo_acto.Id_tipo_acto }}" class="btn btn-danger btn-sm">
+                                                                <i class="nc-icon nc-simple-remove"></i> Eliminar
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>                                                                            
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     {% endif %}
                     

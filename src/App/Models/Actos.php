@@ -36,4 +36,35 @@ class Actos extends \Core\Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function addPonente($idActo, $idPersona, $orden) {
+        $ponenteModel = new ListaPonentes();
+        return $ponenteModel->save(null, ['Id_acto' => $idActo, 'Id_persona' => $idPersona, 'Orden' => $orden]);
+    }
+
+    public function removePonente($idPonente) {
+        $ponenteModel = new ListaPonentes();
+        return $ponenteModel->delete($idPonente);
+    }
+
+    public function getInscritos($idActo) {
+        $sql = "
+            SELECT p.Id_persona, p.Nombre, p.Apellidos, p.Email, p.Telefono, p.Dni, p.Direccion, p.Cp, p.Poblacion, p.Provincia, p.Pais, p.Observaciones
+            FROM Inscritos i
+            LEFT JOIN Personas p ON i.Id_persona = p.Id_persona
+            WHERE i.Id_acto = :idActo";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idActo' => $idActo]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function addInscrito($idActo, $idPersona) {
+        $inscritoModel = new Inscritos();
+        return $inscritoModel->save($idActo, $idPersona);
+    }
+
+    public function removeInscrito($idInscripcion) {
+        $inscrito = new Inscritos();
+        return $inscrito->delete($idInscripcion);
+    }
+
 }
