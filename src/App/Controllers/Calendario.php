@@ -28,7 +28,16 @@ class Calendario extends \Core\Controller
                 <div><strong>Aforo:</strong> {$acto['Num_asistentes']}</div>
                 <div><strong>Tipo de acto:</strong> {$acto['Id_tipo_acto']}</div><br>
                 ";
-            if($acto['Id_persona']) {
+            if($acto['Id_ponente']) {
+                $eventos[] = [
+                    'color' => '#FF8000',
+                    'title' => $acto['Titulo'],
+                    'description' => $description,
+                    'description2' => "ERES PONENTE",
+                    'url' => "",
+                    'start' => "{$acto['Fecha']}T{$acto['Hora']}",
+                ];
+            } else if($acto['Id_persona']) {
                 $eventos[] = [
                     'color' => '#00ff00',
                     'title' => $acto['Titulo'],

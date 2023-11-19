@@ -17,12 +17,13 @@ class Actos extends \Core\Model
 
     public function allWithIncripcion($idPersona) {
         $sql = "
-            SELECT a.*, i.Id_persona, ta.Descripcion as Id_tipo_acto
+            SELECT a.*, i.Id_persona, ta.Descripcion as Id_tipo_acto, p.Id_ponente
             FROM {$this->table} a 
             LEFT JOIN Inscritos i ON a.Id_acto = i.Id_acto AND i.Id_persona = :idPersona 
+            LEFT JOIN Lista_Ponentes p ON a.Id_acto = p.Id_acto AND p.Id_persona = :idPersona2
             LEFT JOIN Tipo_acto ta ON a.Id_tipo_acto = ta.Id_tipo_acto";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(['idPersona' => $idPersona]);
+        $stmt->execute(['idPersona' => $idPersona, 'idPersona2' => $idPersona]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
     
