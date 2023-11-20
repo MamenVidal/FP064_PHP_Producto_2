@@ -23,7 +23,7 @@
                                 <div class="card ">
                                     <div class="card-header ">
                                         <h4 class="card-title">Gestionar Ponentes</h4>
-                                        <a href="/ponente-add" class="btn btn-success float-right">
+                                        <a href="{{ base_path }}ponente-add" class="btn btn-success float-right">
                                             <i class="nc-icon nc-simple-add"></i> Añadir
                                         </a>
                                     </div>
@@ -46,7 +46,7 @@
                                                         <td>{{ ponente.Titulo }}</td>
                                                         <td>{{ ponente.Orden }}</td>
                                                         <td>
-                                                            <a href="/ponente-remove?id={{ ponente.id_ponente }}" class="btn btn-danger btn-sm">
+                                                            <a href="{{ base_path }}ponente-remove?id={{ ponente.id_ponente }}" class="btn btn-danger btn-sm">
                                                                 <i class="nc-icon nc-simple-remove"></i> Eliminar
                                                             </a>
                                                         </td>

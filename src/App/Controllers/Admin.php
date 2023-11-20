@@ -50,11 +50,11 @@ class Admin extends \Core\Controller
         // Verificar que el acto se guardó correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Acto guardado correctamente.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al guardar el acto.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -89,11 +89,11 @@ class Admin extends \Core\Controller
         // Verificar que el tipo de acto se guardó correctamente
         if ($tipoActo) {
             $this->addFlashMessage('success', "Tipo de acto guardado correctamente.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al guardar el tipo de acto.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -107,11 +107,11 @@ class Admin extends \Core\Controller
         // Verificar que el tipo de acto se eliminó correctamente
         if ($tipoActo) {
             $this->addFlashMessage('success', "Tipo de acto eliminado correctamente.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al eliminar el tipo de acto.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -163,11 +163,11 @@ class Admin extends \Core\Controller
         // Verificar que el ponente se añadió correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Ponente añadido correctamente.");
-            header('Location: /ponente-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
             exit;
         }
         $this->addFlashMessage('danger', "Error al añadir el ponente.");
-        header('Location: /ponente-list');
+        header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
         exit;
     }
 
@@ -180,11 +180,11 @@ class Admin extends \Core\Controller
         // Verificar que el ponente se eliminó correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Ponente eliminado correctamente.");
-            header('Location: /ponente-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
             exit;
         }
         $this->addFlashMessage('danger', "Error al eliminar el ponente.");
-        header('Location: /ponente-list');
+        header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
         exit;
     }
 
@@ -235,11 +235,11 @@ class Admin extends \Core\Controller
         // Verificar que el usuario se añadió correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Usuario añadido correctamente.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al añadir el usuario.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         }
     }
@@ -253,11 +253,11 @@ class Admin extends \Core\Controller
         // Verificar que el usuario se eliminó correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Usuario eliminado correctamente.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al eliminar el usuario.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         }
     }

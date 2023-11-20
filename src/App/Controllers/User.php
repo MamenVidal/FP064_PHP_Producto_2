@@ -36,7 +36,7 @@ class User extends \Core\Controller
         foreach($requiredFields as $field) {
             if(empty($this->getParam($field))) {
                 $this->addFlashMessage('danger', "El campo $field es obligatorio.");
-                header('Location: /user-edit');
+                header('Location: ' . \Core\View::BASE_PATH . 'user-edit');
                 exit() ;
             }
         }
@@ -66,7 +66,7 @@ class User extends \Core\Controller
 
         $this->addFlashMessage('success', "Se ha actualizado correctamente.");
 
-        header('Location: /user-edit');
+        header('Location: ' . \Core\View::BASE_PATH . 'user-edit');
     }
 
     public function registerPostAction() {
@@ -79,14 +79,14 @@ class User extends \Core\Controller
             foreach($fields as $field) {
                 if(empty($this->getParam($field))) {
                     $this->addFlashMessage('danger', "El campo $field es obligatorio.");
-                    header('Location: /');
+                    header('Location: ' . \Core\View::BASE_PATH);
                     exit() ;
                 }
             }
 
             if( $this->usuarios->existeUsername( $this->getParam('Username') ) ) {
                 $this->addFlashMessage('danger', "Ya existe un usuario registrado con el mismo username");
-                header('Location: /');
+                header('Location: ' . \Core\View::BASE_PATH);
                 exit() ;
             }
 
@@ -98,7 +98,7 @@ class User extends \Core\Controller
             ]);
             if(!$persona) {
                 $this->addFlashMessage('danger', "Se ha producido un error al crear la persona.");
-                header('Location: /');
+                header('Location: ' . \Core\View::BASE_PATH);
                 exit() ;
             }
 
@@ -106,7 +106,7 @@ class User extends \Core\Controller
             $this->usuarios->register($this->getParam('Username'), $this->getParam('Password'), $persona['Id_persona'], TiposUsuarios::DEFAULT_TIPO_USUARIO);
             if(!$persona) {
                 $this->addFlashMessage('danger', "Se ha producido un error al crear el usuario.");
-                header('Location: /');
+                header('Location: ' . \Core\View::BASE_PATH);
                 exit() ;
             } else {
                 // como el registro ha sido correcto lo logueamos
@@ -119,7 +119,7 @@ class User extends \Core\Controller
             }
             
         }
-        header('Location: /');
+        header('Location: ' . \Core\View::BASE_PATH);
         exit;
     }
 
@@ -133,14 +133,14 @@ class User extends \Core\Controller
             foreach($fields as $field) {
                 if(empty($this->getParam($field))) {
                     $this->addFlashMessage('danger', "El campo $field es obligatorio.");
-                    header('Location: /');
+                    header('Location: ' . \Core\View::BASE_PATH);
                     exit() ;
                 }
             }
 
             if( !$this->usuarios->existeUsername( $this->getParam('Username') ) ) {
                 $this->addFlashMessage('danger', "No existe un usuario registrado con este username");
-                header('Location: /');
+                header('Location: ' . \Core\View::BASE_PATH);
                 exit() ;
             }
 
@@ -153,7 +153,7 @@ class User extends \Core\Controller
             }
             
         }
-        header('Location: /');
+        header('Location: ' . \Core\View::BASE_PATH);
         exit;
     }
 
@@ -161,7 +161,7 @@ class User extends \Core\Controller
         
         $this->auth->logout();
         $this->addFlashMessage('success', "Ha cerrado sesión correctamente.");
-        header('Location: /');
+        header('Location: ' . \Core\View::BASE_PATH);
         exit;
     }
 }

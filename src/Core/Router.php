@@ -87,8 +87,8 @@ class Router
         if ( !empty($parseUrl['path']) ) {
             $path = ltrim($parseUrl['path'], '/');
             $parts = explode('/', $path, 2);
-            if ( strpos($parts[0], '=') === false ) {
-                $output = $parts[0];
+            if ( strpos($parts[View::LEVEL_FOLDER], '=') === false ) {
+                $output = $parts[View::LEVEL_FOLDER];
             }
         }
         return $output;

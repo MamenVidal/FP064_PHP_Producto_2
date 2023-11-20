@@ -5,6 +5,9 @@ namespace Core;
 class View
 {
 
+    const BASE_PATH = '/';
+    const LEVEL_FOLDER = 0;
+
     /**
      * Renderiza una vista
      *
@@ -43,6 +46,7 @@ class View
             $twig = new \Twig\Environment($loader);
         }
 
+        $args['base_path'] = self::BASE_PATH;
         echo $twig->render($template, $args);
     }
 }

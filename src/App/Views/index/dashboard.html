@@ -22,7 +22,7 @@
                                 <div class="card ">
                                     <div class="card-header ">
                                         <h4 class="card-title">Gestionar Actos</h4>
-                                        <a href="/acto-edit" class="btn btn-success float-right">
+                                        <a href="{{ base_path }}acto-edit" class="btn btn-success float-right">
                                             <i class="nc-icon nc-simple-add"></i> Añadir
                                         </a>
                                         
@@ -55,17 +55,17 @@
                                                         <td>{{ acto.Descripcion_larga }}</td>
                                                         <td class="d-inline-block">
                                                             <div>
-                                                                <a href="/acto-edit?id={{ acto.Id_acto }}" class="btn btn-primary btn-sm mb-1">
+                                                                <a href="{{ base_path }}acto-edit?id={{ acto.Id_acto }}" class="btn btn-primary btn-sm mb-1">
                                                                     <i class="nc-icon nc-ruler-pencil"></i> Editar
                                                                 </a>
                                                             </div>
                                                             <div>
-                                                                <a href="/ponente-list?id={{ acto.Id_acto }}" class="btn btn-success btn-sm mb-1">
+                                                                <a href="{{ base_path }}ponente-list?id={{ acto.Id_acto }}" class="btn btn-success btn-sm mb-1">
                                                                     <i class="nc-icon nc-ruler-pencil"></i> Ponentes
                                                                 </a>
                                                             </div>
                                                             <div>
-                                                                <a href="/inscritos-list?id={{ acto.Id_acto }}" class="btn btn-secondary btn-sm mb-1">
+                                                                <a href="{{ base_path }}inscritos-list?id={{ acto.Id_acto }}" class="btn btn-secondary btn-sm mb-1">
                                                                     <i class="nc-icon nc-ruler-pencil"></i> Inscritos
                                                                 </a>
                                                             </div>
@@ -83,7 +83,7 @@
                                 <div class="card ">
                                     <div class="card-header ">
                                         <h4 class="card-title">Gestionar Tipos de Acto</h4>
-                                        <a href="/tipoacto-edit" class="btn btn-success float-right">
+                                        <a href="{{ base_path }}tipoacto-edit" class="btn btn-success float-right">
                                             <i class="nc-icon nc-simple-add"></i> Añadir
                                         </a>
                                     </div>
@@ -102,10 +102,10 @@
                                                         <td>{{ tipo_acto.Id_tipo_acto }}</td>
                                                         <td>{{ tipo_acto.Descripcion }}</td>
                                                         <td>
-                                                            <a href="/tipoacto-edit?id={{ tipo_acto.Id_tipo_acto }}" class="btn btn-primary btn-sm mr-1">
+                                                            <a href="{{ base_path }}tipoacto-edit?id={{ tipo_acto.Id_tipo_acto }}" class="btn btn-primary btn-sm mr-1">
                                                                 <i class="nc-icon nc-ruler-pencil"></i> Editar
                                                             </a>
-                                                            <a href="/tipoacto-delete?id={{ tipo_acto.Id_tipo_acto }}" class="btn btn-danger btn-sm">
+                                                            <a href="{{ base_path }}tipoacto-delete?id={{ tipo_acto.Id_tipo_acto }}" class="btn btn-danger btn-sm">
                                                                 <i class="nc-icon nc-simple-remove"></i> Eliminar
                                                             </a>
                                                         </td>
@@ -134,7 +134,7 @@
                                     <li>Consulta los eventos a los que estás inscrito</li>
                                     <li>Sucríbete o desuscríbete</li>
                                 </ul>
-                                <a class="btn btn-primary w-100" href="/calendario">Calendario de Eventos</a>
+                                <a class="btn btn-primary w-100" href="{{ base_path }}calendario">Calendario de Eventos</a>
                             </div>
                         </div>
 
@@ -149,7 +149,7 @@
                                     <li>Modifica tu información</li>
                                     <li>Cambia mi contraseña</li>
                                 </ul>
-                                <a class="btn btn-success w-100" href="/user-edit">Mi Cuenta</a>
+                                <a class="btn btn-success w-100" href="{{ base_path }}user-edit">Mi Cuenta</a>
                             </div>
                         </div>
 

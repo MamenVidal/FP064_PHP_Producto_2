@@ -16,7 +16,7 @@
             <div class="content">
 
                 <!-- Formulario para editar datos del usuario -->
-                <form action="/user-save" method="POST">
+                <form action="{{ base_path }}user-save" method="POST">
                     <div class="form-group">
                         <label for="Username"><strong>Nombre de usuario</strong></label>
                         <input type="text" class="form-control" id="Username" name="Username" value="{{ user.Username }}">

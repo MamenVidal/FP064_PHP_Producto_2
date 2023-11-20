@@ -88,7 +88,7 @@ class Calendario extends \Core\Controller
         $nunmInscritos = $inscritosModel->getNumInscritos($idActo);
         if($nunmInscritos >= $acto['Num_asistentes']) {
             $this->addFlashMessage('danger', "No hay plazas disponibles.");
-            header('Location: /calendario');
+            header('Location: ' . \Core\View::BASE_PATH . 'calendario');
             return;
         }
 
@@ -99,7 +99,7 @@ class Calendario extends \Core\Controller
         } else {
             $this->addFlashMessage('danger', "Error al realizar la inscripción.");
         }
-        header('Location: /calendario');
+        header('Location: ' . \Core\View::BASE_PATH . 'calendario');
     }
 
     public function desuscripcionAction() {
@@ -124,7 +124,7 @@ class Calendario extends \Core\Controller
         } else {
             $this->addFlashMessage('danger', "Error al realizar la desuscripción.");
         }
-        header('Location: /calendario');
+        header('Location: ' . \Core\View::BASE_PATH . 'calendario');
     }
 
 }
