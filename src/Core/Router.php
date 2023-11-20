@@ -25,11 +25,30 @@ class Router
         return $this->routes;
     }
 
+    public function getUrlOrigin($s, $use_forwarded_host=false) {
+        $ssl = ( ! empty($s['HTTPS']) && $s['HTTPS'] == 'on' ) ? true:false;
+        $sp = strtolower( $s['SERVER_PROTOCOL'] );
+        $protocol = substr( $sp, 0, strpos( $sp, '/'  )) . ( ( $ssl ) ? 's' : '' );
+        
+        $port = $s['SERVER_PORT'];
+        $port = ( ( ! $ssl && $port == '80' ) || ( $ssl && $port=='443' ) ) ? '' : ':' . $port;
+        
+        $host = ( $use_forwarded_host && isset( $s['HTTP_X_FORWARDED_HOST'] ) ) ? $s['HTTP_X_FORWARDED_HOST'] : ( isset( $s['HTTP_HOST'] ) ? $s['HTTP_HOST'] : null );
+        $host = isset( $host ) ? $host : $s['SERVER_NAME'] . $port;
+        
+        return $protocol . '://' . $host;
+    }
+      
+    public function getFullUrl( $s, $use_forwarded_host=false ) {
+        return $this->getUrlOrigin( $s, $use_forwarded_host ) . $s['REQUEST_URI'];
+    }
+
     /**
      * Función que recibida una url, si existe una ruta, ejecuta la acción del controlador
      */
-    public function dispatch($url)
+    public function dispatch()
     {
+        $url = $this->getFullUrl( $_SERVER );
         // obtenemos la url sin parámetros
         $url = $this->removeQueryStringVariables($url);
         // si existe ruta para la url
@@ -63,16 +82,16 @@ class Router
      */
     protected function removeQueryStringVariables($url)
     {
-        if ( !empty($url) ) {
-            $url = ltrim($url, '/');
-            $parts = explode('&', $url, 2);
+        $parseUrl = parse_url($url);
+        $output = '';
+        if ( !empty($parseUrl['path']) ) {
+            $path = ltrim($parseUrl['path'], '/');
+            $parts = explode('/', $path, 2);
             if ( strpos($parts[0], '=') === false ) {
-                $url = $parts[0];
-            } else {
-                $url = '';
+                $output = $parts[0];
             }
         }
-        return $url;
+        return $output;
     }
     
     /**

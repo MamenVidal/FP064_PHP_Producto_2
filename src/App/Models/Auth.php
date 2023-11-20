@@ -37,6 +37,16 @@ class Auth {
         return false;
     }
 
+    public function refreshUserData() {
+        $userId = $this->getUserData()['Id_usuario'];
+        // Implementar la lógica de login aquí usando UsuarioModel
+        $user = $this->usuarios->query("SELECT U.*,P.Nombre, P.Apellido1, P.Apellido2 FROM Usuarios U INNER JOIN Personas P ON U.Id_usuario = P.Id_persona WHERE U.Id_usuario = :idusuario", ['idusuario' => $userId]);
+        if ($user) {
+            // Almacenar información relevante en la sesión
+            $_SESSION['user_data'] = $user[0];
+        }
+    }
+
     public function logout() {
         // Destruir todas las variables de sesión
         $_SESSION = [];

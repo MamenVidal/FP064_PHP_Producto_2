@@ -1,0 +1,32 @@
+{% extends "page.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    <div class="wrapper">
+        {% include 'sidebar.html' ignore missing with {'user': user} %}
+        <div class="main-panel">
+            
+            {% include 'navbar.html' %}
+
+            <div class="content">
+
+
+
+
+                
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+                        <p class="copyright text-center">
+                            FP064 Desarrollo back-end con PHP, framework MVC y gestor de contenidos
+                        </p>
+                    </nav>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+{% endblock %}

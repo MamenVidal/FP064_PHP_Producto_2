@@ -35,7 +35,7 @@ class Usuarios extends \Core\Model
     // Método para verificar las credenciales de un usuario
     public function login($username, $password) {
         // Buscar al usuario por su nombre de usuario
-        $user = $this->query("SELECT * FROM {$this->table} WHERE Username = :username", ['username' => $username]);
+        $user = $this->query("SELECT U.*,P.Nombre, P.Apellido1, P.Apellido2 FROM {$this->table} U INNER JOIN Personas P ON U.Id_usuario = P.Id_persona WHERE U.Username = :username", ['username' => $username]);
         
         // Verificar si el usuario existe y la contraseña es correcta
         if ($user && password_verify($password, $user[0]['Password'])) {

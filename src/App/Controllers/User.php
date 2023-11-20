@@ -24,9 +24,53 @@ class User extends \Core\Controller
         parent::__construct();
     }
 
+    public function userEditAction() {
+        $this->onlyAuth();
+        $this->view->renderTemplate('user/edit.html', ['flash_messages' => $this->getFlashMessages(), 'user' => $this->auth->getUserData()]);
+    }
+
+    public function userSaveAction() {
+        $this->onlyAuth();
+        // validamos que existen todos los datos
+        $requiredFields = ['Username','Nombre','Apellido1','Apellido2'];
+        foreach($requiredFields as $field) {
+            if(empty($this->getParam($field))) {
+                $this->addFlashMessage('danger', "El campo $field es obligatorio.");
+                header('Location: /user-edit');
+                exit() ;
+            }
+        }
+
+        // validamos si se está cambiando el password
+        if( empty($this->getParam('Password')) ) {
+            $this->usuarios->save($this->auth->getUserData()['Id_usuario'], [
+                'Username' => $this->getParam('Username'),
+            ]);
+        } else {
+            // Cifrar la contraseña
+            $hashedPassword = password_hash($this->getParam('Password'), PASSWORD_DEFAULT);
+            $this->usuarios->save($this->auth->getUserData()['Id_usuario'], [
+                'Username' => $this->getParam('Username'),
+                'Password' => $hashedPassword,
+            ]);
+        }
+
+        // actualizamos persona
+        $this->personas->save($this->auth->getUserData()['Id_usuario'], [
+            'Nombre' => $this->getParam('Nombre'),
+            'Apellido1' => $this->getParam('Apellido1'),
+            'Apellido2' => $this->getParam('Apellido2'),
+        ]);
+
+        $this->auth->refreshUserData();
+
+        $this->addFlashMessage('success', "Se ha actualizado correctamente.");
+
+        header('Location: /user-edit');
+    }
+
     public function registerPostAction() {
         
-        $_SESSION['flash_messages'] = [];
         if ( !$this->authModel->isUserLoggedIn() && $this->isPost() ) {
             $data = $this->getParams();
 
@@ -34,20 +78,14 @@ class User extends \Core\Controller
             $fields = ['Nombre','Apellido1','Apellido2','Username','Password'];
             foreach($fields as $field) {
                 if(empty($this->getParam($field))) {
-                    $_SESSION['flash_messages'][] = [
-                        'tipo' => 'danger',
-                        'texto' => "El campo $field es obligatorio."
-                    ];
+                    $this->addFlashMessage('danger', "El campo $field es obligatorio.");
                     header('Location: /');
                     exit() ;
                 }
             }
 
             if( $this->usuarios->existeUsername( $this->getParam('Username') ) ) {
-                $_SESSION['flash_messages'][] = [
-                    'tipo' => 'danger',
-                    'texto' => "Ya existe un usuario registrado con el mismo username"
-                ];
+                $this->addFlashMessage('danger', "Ya existe un usuario registrado con el mismo username");
                 header('Location: /');
                 exit() ;
             }
@@ -59,10 +97,7 @@ class User extends \Core\Controller
                 'Apellido2' => $this->getParam('Apellido2'),
             ]);
             if(!$persona) {
-                $_SESSION['flash_messages'][] = [
-                    'tipo' => 'danger',
-                    'texto' => "Se ha producido un error al crear la persona."
-                ];
+                $this->addFlashMessage('danger', "Se ha producido un error al crear la persona.");
                 header('Location: /');
                 exit() ;
             }
@@ -70,25 +105,16 @@ class User extends \Core\Controller
             // creamos usuario
             $this->usuarios->register($this->getParam('Username'), $this->getParam('Password'), $persona['Id_persona'], TiposUsuarios::DEFAULT_TIPO_USUARIO);
             if(!$persona) {
-                $_SESSION['flash_messages'][] = [
-                    'tipo' => 'danger',
-                    'texto' => "Se ha producido un error al crear el usuario."
-                ];
+                $this->addFlashMessage('danger', "Se ha producido un error al crear el usuario.");
                 header('Location: /');
                 exit() ;
             } else {
                 // como el registro ha sido correcto lo logueamos
                 $login = $this->auth->login($this->getParam('Username'), $this->getParam('Password'));
                 if($login) {
-                    $_SESSION['flash_messages'][] = [
-                        'tipo' => 'success',
-                        'texto' => "Se ha registrado correctamente."
-                    ];
+                    $this->addFlashMessage('success', "Se ha registrado correctamente.");
                 } else  {
-                    $_SESSION['flash_messages'][] = [
-                        'tipo' => 'info',
-                        'texto' => "Su usuario se ha registrado correctamente, por favor haga login."
-                    ];
+                    $this->addFlashMessage('danger', "Se ha producido un error al loguear el usuario.");
                 }
             }
             
@@ -99,7 +125,6 @@ class User extends \Core\Controller
 
     public function loginPostAction() {
         
-        $_SESSION['flash_messages'] = [];
         if ( !$this->authModel->isUserLoggedIn() && $this->isPost() ) {
             $data = $this->getParams();
 
@@ -107,20 +132,14 @@ class User extends \Core\Controller
             $fields = ['Username','Password'];
             foreach($fields as $field) {
                 if(empty($this->getParam($field))) {
-                    $_SESSION['flash_messages'][] = [
-                        'tipo' => 'danger',
-                        'texto' => "El campo $field es obligatorio."
-                    ];
+                    $this->addFlashMessage('danger', "El campo $field es obligatorio.");
                     header('Location: /');
                     exit() ;
                 }
             }
 
             if( !$this->usuarios->existeUsername( $this->getParam('Username') ) ) {
-                $_SESSION['flash_messages'][] = [
-                    'tipo' => 'danger',
-                    'texto' => "No existe un usuario registrado con este username"
-                ];
+                $this->addFlashMessage('danger', "No existe un usuario registrado con este username");
                 header('Location: /');
                 exit() ;
             }
@@ -128,15 +147,9 @@ class User extends \Core\Controller
             // logueamos
             $login = $this->auth->login($this->getParam('Username'), $this->getParam('Password'));
             if($login) {
-                $_SESSION['flash_messages'][] = [
-                    'tipo' => 'success',
-                    'texto' => "Se ha logueado correctamente."
-                ];
+                $this->addFlashMessage('success', "Se ha logueado correctamente.");
             } else  {
-                $_SESSION['flash_messages'][] = [
-                    'tipo' => 'danger',
-                    'texto' => "La contraseña es incorrecta."
-                ];
+                $this->addFlashMessage('danger', "Se ha producido un error al loguear el usuario.");
             }
             
         }
@@ -147,11 +160,7 @@ class User extends \Core\Controller
     public function logoutAction() {
         
         $this->auth->logout();
-        $_SESSION['flash_messages'] = [];
-        $_SESSION['flash_messages'][] = [
-            'tipo' => 'success',
-            'texto' => "Ha cerrado sesión correctamente."
-        ];
+        $this->addFlashMessage('success', "Ha cerrado sesión correctamente.");
         header('Location: /');
         exit;
     }

@@ -1,0 +1,47 @@
+{# Extiende la plantilla base "page.html" #}
+{% extends "page.html" %}
+
+{# Define el bloque 'title' con el título "Dashboard" #}
+{% block title %}Dashboard{% endblock %}
+
+{# Inicia el bloque 'body' para el contenido principal de la página #}
+{% block body %}
+
+<div class="wrapper">
+    {% include 'sidebar.html' ignore missing with {'user': user} %}
+    <div class="main-panel">
+        {% include 'navbar.html' ignore missing with {'flash_messages': flash_messages}  %}
+        <div class="content">
+            {# Formulario para guardar datos de un tipo_acto #}
+            <form method="post" action="/tipoacto-save" class="needs-validation" novalidate>
+                {% if tipo_acto.Id_tipo_acto %}
+                <div class="form-group">
+                    <label for="Descripcion">ID Tipo Acto:</label><br>
+                    <input type="text" name="Id_tipo_acto" value="{{ tipo_acto.Id_tipo_acto }}" readonly>
+                </div>
+                {% endif %}
+            
+                <div class="form-group">
+                    <label for="Descripcion">Descripción:</label>
+                    <input type="text" class="form-control" name="Descripcion" id="Descripcion" value="{{ tipo_acto.Descripcion | default('') }}" required>
+                </div>
+        
+                {# Botón para enviar el formulario #}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+            
+        </div>
+    
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav>
+                    <p class="copyright text-center">
+                        FP064 Desarrollo back-end con PHP, framework MVC y gestor de contenidos
+                    </p>
+                </nav>
+            </div>
+        </footer>
+    </div>
+</div>
+
+{% endblock %}

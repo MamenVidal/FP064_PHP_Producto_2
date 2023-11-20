@@ -1,0 +1,78 @@
+{# Extiende la plantilla base "page.html" #}
+{% extends "page.html" %}
+
+{# Define el bloque 'title' con el título "Dashboard" #}
+{% block title %}Dashboard{% endblock %}
+
+{# Inicia el bloque 'body' para el contenido principal de la página #}
+{% block body %}
+
+<div class="wrapper">
+    {% include 'sidebar.html' ignore missing with {'user': user} %}
+    <div class="main-panel">
+        {% include 'navbar.html' ignore missing with {'flash_messages': flash_messages}  %}
+        <div class="content">
+            {# Formulario para guardar datos de un acto #}
+            <form method="post" action="/acto-save" class="needs-validation" novalidate>
+                {% if acto.Id_acto %}
+                    <input type="hidden" name="Id_acto" value="{{ acto.Id_acto }}">
+                {% endif %}
+            
+                <div class="form-group">
+                    <label for="Fecha">Fecha:</label>
+                    <input type="date" class="form-control" name="Fecha" id="Fecha" value="{{ acto.Fecha | default('') }}" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="Hora">Hora:</label>
+                    <input type="time" class="form-control" name="Hora" id="Hora" value="{{ acto.Hora | default('') }}" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="Titulo">Título:</label>
+                    <input type="text" class="form-control" name="Titulo" id="Titulo" value="{{ acto.Titulo | default('') }}" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="Descripcion_corta">Descripción Corta:</label>
+                    <input type="text" class="form-control" name="Descripcion_corta" id="Descripcion_corta" value="{{ acto.Descripcion_corta | default('') }}" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="Num_asistentes">Número de Asistentes:</label>
+                    <input type="number" class="form-control" name="Num_asistentes" id="Num_asistentes" value="{{ acto.Num_asistentes | default('') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Id_tipo_acto">Tipo de Acto:</label>
+                    <select class="form-control" name="Id_tipo_acto" id="Id_tipo_acto" required>
+                        {% for tipo in tipo_acto %}
+                            <option value="{{ tipo.Id_tipo_acto }}" {% if acto.Id_tipo_acto == tipo.Id_tipo_acto %} selected {% endif %}>{{ tipo.Descripcion }}</option>
+                        {% endfor %}
+                    </select>
+                </div>                
+            
+                <div class="form-group">
+                    <label for="Descripcion_larga">Descripción Larga:</label>
+                    <textarea class="form-control" name="Descripcion_larga" id="Descripcion_larga" required>{{ acto.Descripcion_larga | default('') }}</textarea>
+                </div>
+            
+                {# Botón para enviar el formulario #}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+            
+        </div>
+    
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav>
+                    <p class="copyright text-center">
+                        FP064 Desarrollo back-end con PHP, framework MVC y gestor de contenidos
+                    </p>
+                </nav>
+            </div>
+        </footer>
+    </div>
+</div>
+
+{% endblock %}
