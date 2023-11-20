@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Actos;
+use Core\View;
 
 class Calendario extends \Core\Controller
 {
@@ -43,7 +44,7 @@ class Calendario extends \Core\Controller
                     'title' => $acto['Titulo'],
                     'description' => $description,
                     'description2' => "Clic para desuscribirte",
-                    'url' => "/desuscripcion?id={$acto['Id_acto']}",
+                    'url' => View::BASE_PATH."desuscripcion?id={$acto['Id_acto']}",
                     'start' => "{$acto['Fecha']}T{$acto['Hora']}",
                 ];
             } else {
@@ -52,7 +53,7 @@ class Calendario extends \Core\Controller
                     'title' => $acto['Titulo'],
                     'description' => $description,
                     'description2' => "Clic para suscribirte",
-                    'url' => "/inscripcion?id={$acto['Id_acto']}",
+                    'url' => View::BASE_PATH."inscripcion?id={$acto['Id_acto']}",
                     'start' => "{$acto['Fecha']}T{$acto['Hora']}",
                 ];
             }
