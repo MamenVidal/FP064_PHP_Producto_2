@@ -19,7 +19,7 @@ abstract class Controller
 
         // Si el controlador requiere autenticación y el usuario no está logueado, redirigir a la página de inicio
         if ($this->authRequired && !$this->authModel->isUserLoggedIn()) {
-            header('Location: /'); // ruta base dónde se mostrará el formulario de login
+            header('Location: ' . \Core\View::BASE_PATH); // ruta base dónde se mostrará el formulario de login
             exit;
         }
     }
@@ -137,7 +137,7 @@ abstract class Controller
     protected function onlyAuth() {
         if (!$this->authModel->isUserLoggedIn()) {
             $this->addFlashMessage('danger', "Acceso restringido.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -145,7 +145,7 @@ abstract class Controller
     protected function onlyAdmin() {
         if (!$this->isAdmin()) {
             $this->addFlashMessage('danger', "Acceso restringido a administradores.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -153,7 +153,7 @@ abstract class Controller
     protected function onlyPonente() {
         if (!$this->isPonente()) {
             $this->addFlashMessage('danger', "Acceso restringido a ponentes.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -161,7 +161,7 @@ abstract class Controller
     protected function onlyUsuario() {
         if (!$this->isUsuario()) {
             $this->addFlashMessage('danger', "Acceso restringido a usuarios.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
