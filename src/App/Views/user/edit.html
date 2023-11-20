@@ -1,7 +1,10 @@
+{# Extiende la plantilla base "page.html" #}
 {% extends "page.html" %}
 
+{# Define el bloque 'title' con el título "Dashboard" #}
 {% block title %}Dashboard{% endblock %}
 
+{# Inicia el bloque 'body' para el contenido principal de la página #}
 {% block body %}
 
     <div class="wrapper">
@@ -12,6 +15,7 @@
 
             <div class="content">
 
+                <!-- Formulario para editar datos del usuario -->
                 <form action="/user-save" method="POST">
                     <div class="form-group">
                         <label for="Username"><strong>Nombre de usuario</strong></label>
@@ -33,10 +37,12 @@
                         <label for="Apellido2"><strong>Apellido 2</strong></label>
                         <input type="text" class="form-control" id="Apellido2" name="Apellido2" value="{{ user.Apellido2 }}">
                     </div>
+                    <!-- Botón de envío del formulario -->
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>                
                 
             </div>
+            <!-- Pie de página -->
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>

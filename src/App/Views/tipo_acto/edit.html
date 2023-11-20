@@ -12,7 +12,7 @@
     <div class="main-panel">
         {% include 'navbar.html' ignore missing with {'flash_messages': flash_messages}  %}
         <div class="content">
-            {# Formulario para guardar datos de un tipo_acto #}
+            <!-- Formulario para guardar datos de un tipo_acto -->
             <form method="post" action="/tipoacto-save" class="needs-validation" novalidate>
                 {% if tipo_acto.Id_tipo_acto %}
                 <div class="form-group">
