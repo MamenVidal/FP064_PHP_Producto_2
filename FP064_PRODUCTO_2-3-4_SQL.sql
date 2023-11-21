@@ -123,7 +123,7 @@ CREATE TABLE `Tipo_acto` (
 CREATE TABLE `Usuarios` (
   `Id_usuario` int(11) NOT NULL,
   `Username` varchar(100) NOT NULL,
-  `Password` varchar(100) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `Id_Persona` int(11) NOT NULL,
   `Id_tipo_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
