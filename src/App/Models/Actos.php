@@ -67,5 +67,35 @@ class Actos extends \Core\Model
         $inscrito = new Inscritos();
         return $inscrito->delete($idInscripcion);
     }
+    
+    public function deleteActo($idActo) {
+        // Verificar si hay ponentes asociados a este acto
+        if ($this->hasPonentes($idActo)) {
+            return false; // No se puede eliminar si hay ponentes
+        }
 
+        // Verificar si hay inscritos asociados a este acto
+        if ($this->hasInscritos($idActo)) {
+            return false; // No se puede eliminar si hay inscritos
+        }
+
+        // Si no hay ponentes ni inscritos, proceder con la eliminación
+        $sql = "DELETE FROM {$this->table} WHERE {$this->pkField} = :idActo";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['idActo' => $idActo]);
+    }
+
+    private function hasPonentes($idActo) {
+        $sql = "SELECT COUNT(*) FROM Lista_Ponentes WHERE Id_acto = :idActo";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idActo' => $idActo]);
+        return $stmt->fetchColumn() > 0;
+    }
+
+    private function hasInscritos($idActo) {
+        $sql = "SELECT COUNT(*) FROM Inscritos WHERE Id_acto = :idActo";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idActo' => $idActo]);
+        return $stmt->fetchColumn() > 0;
+    }
 }

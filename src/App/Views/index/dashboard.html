@@ -69,6 +69,12 @@
                                                                     <i class="nc-icon nc-ruler-pencil"></i> Inscritos
                                                                 </a>
                                                             </div>
+                                                            <div>
+                                                             <!-- Botón para eliminar un acto -->
+                                                                <a href="{{ base_path }}acto-delete?id={{ acto.Id_acto }}" class="btn btn-danger btn-sm mb-1" onclick="return confirm('¿Estás seguro de que quieres eliminar este acto? Solo se pueden eliminar actos sin ponentes ni inscritos.')">
+                                                                  <i class="nc-icon nc-simple-remove"></i> Eliminar
+                                                                </a>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
