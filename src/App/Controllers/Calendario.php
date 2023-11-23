@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Actos;
+use Core\View;
 
 class Calendario extends \Core\Controller
 {
@@ -43,7 +44,7 @@ class Calendario extends \Core\Controller
                     'title' => $acto['Titulo'],
                     'description' => $description,
                     'description2' => "Clic para desuscribirte",
-                    'url' => "/desuscripcion?id={$acto['Id_acto']}",
+                    'url' => View::BASE_PATH."desuscripcion?id={$acto['Id_acto']}",
                     'start' => "{$acto['Fecha']}T{$acto['Hora']}",
                 ];
             } else {
@@ -52,7 +53,7 @@ class Calendario extends \Core\Controller
                     'title' => $acto['Titulo'],
                     'description' => $description,
                     'description2' => "Clic para suscribirte",
-                    'url' => "/inscripcion?id={$acto['Id_acto']}",
+                    'url' => View::BASE_PATH."inscripcion?id={$acto['Id_acto']}",
                     'start' => "{$acto['Fecha']}T{$acto['Hora']}",
                 ];
             }
@@ -88,7 +89,7 @@ class Calendario extends \Core\Controller
         $nunmInscritos = $inscritosModel->getNumInscritos($idActo);
         if($nunmInscritos >= $acto['Num_asistentes']) {
             $this->addFlashMessage('danger', "No hay plazas disponibles.");
-            header('Location: /calendario');
+            header('Location: ' . \Core\View::BASE_PATH . 'calendario');
             return;
         }
 
@@ -99,7 +100,7 @@ class Calendario extends \Core\Controller
         } else {
             $this->addFlashMessage('danger', "Error al realizar la inscripción.");
         }
-        header('Location: /calendario');
+        header('Location: ' . \Core\View::BASE_PATH . 'calendario');
     }
 
     public function desuscripcionAction() {
@@ -124,7 +125,7 @@ class Calendario extends \Core\Controller
         } else {
             $this->addFlashMessage('danger', "Error al realizar la desuscripción.");
         }
-        header('Location: /calendario');
+        header('Location: ' . \Core\View::BASE_PATH . 'calendario');
     }
 
 }

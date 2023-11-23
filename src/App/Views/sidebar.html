@@ -3,7 +3,7 @@
     <div class="sidebar-wrapper">
         <!-- Sección del logo con enlace a la página de inicio y muestra el tipo de usuario -->
         <div class="logo">
-            <a href="/" class="simple-text">
+            <a href="{{ base_path }}" class="simple-text">
                 PHPDevelopers
             </a>
         </div>
@@ -24,40 +24,40 @@
             {% if user.Id_tipo_usuario == 1 %}
             <!-- Elemento de navegación solo para admin -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="{{ base_path }}">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/ponente-list">
+                <a class="nav-link" href="{{ base_path }}ponente-list">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Gestionar ponentes</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/inscritos-list">
+                <a class="nav-link" href="{{ base_path }}inscritos-list">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Gestionar inscritos</p>
                 </a>
             </li>
             {% endif %}
             <li>
-                <a class="nav-link" href="/calendario">
+                <a class="nav-link" href="{{ base_path }}calendario">
                     <i class="nc-icon nc-notes"></i>
                     <p>Calendario</p>
                 </a>
             </li>
             <!-- Elemento de navegación para editar el perfil del usuario -->
             <li>
-                <a class="nav-link" href="/user-edit">
+                <a class="nav-link" href="{{ base_path }}user-edit">
                     <i class="nc-icon nc-circle-09"></i>
                     <p>Perfil usuario</p>
                 </a>
             </li>
             <!-- Elemento de navegación para editar mi cuenta y cerrar sesión -->
             <li class="nav-item active active-pro">
-                <a class="nav-link active" href="/logout">
+                <a class="nav-link active" href="{{ base_path }}logout">
                     <i class="nc-icon nc-alien-33"></i>
                     <p>Cerrar sesión</p>
                 </a>

@@ -20,7 +20,7 @@
                                 <div class="card ">
                                     <div class="card-header ">
                                         <h4 class="card-title">Gestionar Inscritos</h4>
-                                        <a href="/inscritos-add" class="btn btn-success float-right">
+                                        <a href="{{ base_path }}inscritos-add" class="btn btn-success float-right">
                                             <i class="nc-icon nc-simple-add"></i> Añadir
                                         </a>
                                     </div>
@@ -43,7 +43,7 @@
                                                         <td>{{ inscrito.Titulo }}</td>
                                                         <td>{{ inscrito.Fecha }}</td>
                                                         <td>
-                                                            <a href="/inscritos-remove?id={{ inscrito.Id_inscripcion }}" class="btn btn-danger btn-sm">
+                                                            <a href="{{ base_path }}inscritos-remove?id={{ inscrito.Id_inscripcion }}" class="btn btn-danger btn-sm">
                                                                 <i class="nc-icon nc-simple-remove"></i> Eliminar
                                                             </a>
                                                         </td>

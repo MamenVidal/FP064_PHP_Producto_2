@@ -1,8 +1,11 @@
 {% extends "page.html" %}
+<!-- Extiende de la plantilla 'page.html', heredando su estructura básica -->
 
 {% block title %}Dashboard{% endblock %}
+<!-- Define el título de la página como 'Dashboard' -->
 
 {% block body %}
+<!-- Inicio del bloque de contenido principal de la página -->
 
     <div class="wrapper">
         {% include 'sidebar.html' ignore missing with {'user': user} %}
@@ -14,6 +17,7 @@
                 
             </div>
             <footer class="footer">
+             <!-- Pie de página -->
                 <div class="container-fluid">
                     <nav>
                         <p class="copyright text-center">

@@ -50,13 +50,36 @@ class Admin extends \Core\Controller
         // Verificar que el acto se guardó correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Acto guardado correctamente.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al guardar el acto.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
+    }
+
+    // Método para eliminar un acto
+    public function actoDeleteAction() {
+        $this->onlyAdmin(); // Acceso restringido solo a administradores
+        // Crea una nueva instancia del modelo Actos y elimina el acto
+        $actosModel = new Actos();
+        try {
+            $result = $actosModel->delete($this->getParam('id'));
+        } catch (\Exception $e) {
+            $this->addFlashMessage('danger', "Error al eliminar el acto. Revisa que no tenga Invitados o ponentes asociados.");
+            header('Location: ' . \Core\View::BASE_PATH);
+            exit;
+        }
+        // Verificar que el acto se eliminó correctamente
+        if ($result) {
+            $this->addFlashMessage('success', "Acto eliminado correctamente.");
+        } else {
+            $this->addFlashMessage('danger', "Error al eliminar el acto.");
+        }
+    
+        header('Location: ' . \Core\View::BASE_PATH . 'ruta-a-listado-actos');
+        exit;
     }
 
     // Método para editar un tipo de acto existente
@@ -89,11 +112,11 @@ class Admin extends \Core\Controller
         // Verificar que el tipo de acto se guardó correctamente
         if ($tipoActo) {
             $this->addFlashMessage('success', "Tipo de acto guardado correctamente.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al guardar el tipo de acto.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -103,15 +126,21 @@ class Admin extends \Core\Controller
         $this->onlyAdmin();
         // Crea una nueva instancia del modelo TipoActo y elimina el tipo de acto
         $tipoActoModel = new TipoActo();
-        $tipoActo = $tipoActoModel->delete($this->getParam('id'));
+        try {
+            $tipoActo = $tipoActoModel->delete($this->getParam('id'));
+        } catch (\Exception $e) {
+            $this->addFlashMessage('danger', "Error al eliminar el tiipo de acto. Revisa que no este asociado a un acto existente.");
+            header('Location: ' . \Core\View::BASE_PATH);
+            exit;
+        }
         // Verificar que el tipo de acto se eliminó correctamente
         if ($tipoActo) {
             $this->addFlashMessage('success', "Tipo de acto eliminado correctamente.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al eliminar el tipo de acto.");
-            header('Location: /');
+            header('Location: ' . \Core\View::BASE_PATH);
             exit;
         }
     }
@@ -163,11 +192,11 @@ class Admin extends \Core\Controller
         // Verificar que el ponente se añadió correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Ponente añadido correctamente.");
-            header('Location: /ponente-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
             exit;
         }
         $this->addFlashMessage('danger', "Error al añadir el ponente.");
-        header('Location: /ponente-list');
+        header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
         exit;
     }
 
@@ -180,11 +209,11 @@ class Admin extends \Core\Controller
         // Verificar que el ponente se eliminó correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Ponente eliminado correctamente.");
-            header('Location: /ponente-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
             exit;
         }
         $this->addFlashMessage('danger', "Error al eliminar el ponente.");
-        header('Location: /ponente-list');
+        header('Location: ' . \Core\View::BASE_PATH . 'ponente-list');
         exit;
     }
 
@@ -235,11 +264,11 @@ class Admin extends \Core\Controller
         // Verificar que el usuario se añadió correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Usuario añadido correctamente.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al añadir el usuario.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         }
     }
@@ -253,11 +282,11 @@ class Admin extends \Core\Controller
         // Verificar que el usuario se eliminó correctamente
         if ($acto) {
             $this->addFlashMessage('success', "Usuario eliminado correctamente.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         } else {
             $this->addFlashMessage('danger', "Error al eliminar el usuario.");
-            header('Location: /inscritos-list');
+            header('Location: ' . \Core\View::BASE_PATH . 'inscritos-list');
             exit;
         }
     }

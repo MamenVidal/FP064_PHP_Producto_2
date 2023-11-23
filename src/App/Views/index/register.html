@@ -10,13 +10,13 @@
         <div class="sidebar" data-image="/img/sidebar.jpg">
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="/" class="simple-text">
+                    <a href="{{ base_path }}" class="simple-text">
                         PHPDevelopers
                     </a>
                 </div>
                 <ul class="nav">
                     <li>
-                        <a class="nav-link" href="/">
+                        <a class="nav-link" href="{{ base_path }}">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>Registro</p>
                         </a>
@@ -41,7 +41,7 @@
                                 
                                 <div class="card-body">
                                 
-                                    <form action="/loginPost" method="post" onsubmit="return validarFormulario()">
+                                    <form action="{{ base_path }}loginPost" method="post" onsubmit="return validarFormulario()">
                                         <div>
                                             <label for="Username">Nombre de Usuario:</label>
                                             <input type="text" id="Username" name="Username" required>
@@ -66,7 +66,7 @@
                                 
                                 <div class="card-body">
                                 
-                                    <form action="/registerPost" method="post" onsubmit="return validarFormulario()">
+                                    <form action="{{ base_path }}registerPost" method="post" onsubmit="return validarFormulario()">
                                         <div>
                                             <label for="Nombre">Nombre:</label>
                                             <input type="text" id="Nombre" name="Nombre" required>

@@ -43,6 +43,7 @@ $router->addRoute('inscritos-remove', 'Admin', 'inscritosRemove');
 
 $router->addRoute('acto-edit', 'Admin', 'actoEdit');
 $router->addRoute('acto-save', 'Admin', 'actoSave');
+$router->addRoute('acto-delete', 'Admin', 'actoDelete');
 
 // acciones calendario
 $router->addRoute('calendario', 'Calendario', 'index');
